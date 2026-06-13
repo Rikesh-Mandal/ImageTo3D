@@ -1,6 +1,6 @@
 # ImageTo3D-Reconstruction
 
-This project performs monocular depth estimation from RGB images using a ResNet-based encoder-decoder neural network, and reconstructs 3D models by generating point clouds and surface meshes using Open3D.
+An end-to-end deep learning pipeline that turns a single 2D photo into a 3D model. A ResNet50-based encoder-decoder estimates depth from the image, which is then converted into a 3D point cloud and refined into a mesh using Open3D's Poisson surface reconstruction. Built with PyTorch, OpenCV, and NumPy as part of my MSc dissertation.
 
 ## Features
 - Pretrained ResNet50 encoder for extracting features.
