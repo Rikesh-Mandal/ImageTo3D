@@ -1,0 +1,85 @@
+
+# =============================================
+# 1. Python cache files
+# =============================================
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
+# =============================================
+# 2. Python virtual environments
+# =============================================
+.venv/
+venv/
+env/
+ENV/
+
+# =============================================
+# 3. IDE and editor configuration
+# =============================================
+.idea/
+.vscode/
+
+# =============================================
+# 4. Environment variables and credentials
+# =============================================
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# =============================================
+# 5. Trained ML models and checkpoints
+# =============================================
+saved_models/
+models/
+checkpoints/
+
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.safetensors
+
+# =============================================
+# 6. Training datasets
+# =============================================
+data/
+datasets/
+
+*.h5
+*.hdf5
+
+# =============================================
+# 7. Generated reconstruction files
+# =============================================
+outputs/
+sample_output/
+sample_input/
+
+*.npy
+*.npz
+*.ply
+*.obj
+*.glb
+*.stl
+
+# =============================================
+# 8. Training logs and experiment results
+# =============================================
+logs/
+runs/
+*.log
+
+# =============================================
+# 9. Operating system files
+# =============================================
+.DS_Store
+Thumbs.db
