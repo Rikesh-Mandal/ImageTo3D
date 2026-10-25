@@ -12,7 +12,7 @@ services:
     environment:
       U2NET_HOME: /app/.u2net
       OMP_NUM_THREADS: "2"
-
+      NUMBA_CACHE_DIR: /tmp/imageto3d-numba-cache
     volumes:
       # Mount the trained checkpoint without putting
       # its weights in GitHub or the Docker image.
