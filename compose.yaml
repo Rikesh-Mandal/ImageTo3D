@@ -1,0 +1,66 @@
+name: imageto3d
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    init: true
+    restart: unless-stopped
+
+    environment:
+      U2NET_HOME: /app/.u2net
+      OMP_NUM_THREADS: "2"
+
+    volumes:
+      # Mount the trained checkpoint without putting
+      # its weights in GitHub or the Docker image.
+      - type: bind
+        source: ./saved_models/best_model.pth
+        target: /app/saved_models/best_model.pth
+        read_only: true
+        bind:
+          create_host_path: false
+
+      # Store generated PNG and PLY files.
+      - api_outputs:/app/outputs/api
+
+      # Persist downloaded segmentation model weights.
+      - rembg_cache:/app/.u2net
+
+    expose:
+      - "8001"
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/api/health', timeout=5)"
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        FASTAPI_URL: http://backend:8001
+
+    init: true
+    restart: unless-stopped
+
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    # Only the Ubuntu host itself can reach this port.
+    ports:
+      - "127.0.0.1:3001:3000"
+
+volumes:
+  api_outputs:
+  rembg_cache:

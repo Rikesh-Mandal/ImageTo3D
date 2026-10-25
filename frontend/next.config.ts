@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
+const fastApiUrl = (process.env.FASTAPI_URL ?? "http://127.0.0.1:8001").replace(
+  /\/$/,
+  "",
+);
+
 const nextConfig: NextConfig = {
+  output: "standalone",
+
   transpilePackages: ["three"],
 
   async rewrites() {
@@ -8,7 +15,7 @@ const nextConfig: NextConfig = {
       beforeFiles: [
         {
           source: "/api/:path*",
-          destination: "http://127.0.0.1:8001/api/:path*",
+          destination: `${fastApiUrl}/api/:path*`,
         },
       ],
     };
