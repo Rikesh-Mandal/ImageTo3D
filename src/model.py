@@ -3,13 +3,12 @@ import torch.nn as nn
 from torchvision.models import resnet50
 
 
-def encoder_resnet():
+def encoder_resnet(pretrained=True):
     """Create ResNet50 backbone that maintains spatial dimensions for feature extraction"""
-    model = resnet50(weights='IMAGENET1K_V2')
-    #print(model)
+    weights = "IMAGENET1k_V2" if pretrained else None
+    model = resnet50(weights=weights)
     # Remove the final layers (avgpool and fc)
     backbone = nn.Sequential(*list(model.children())[:-2])
-
     # Convert all weights to float32 explicitly
     return backbone.float()
 
@@ -109,10 +108,12 @@ def save_model(backbone, head, filepath):
 
 def load_model(filepath, device):
     """Load model weights from file"""
-    checkpoint = torch.load(filepath, map_location=device)
+    checkpoint = torch.load(filepath,
+                            map_location=device,
+                            weights_only=True)
 
     # Create new model instances
-    backbone = encoder_resnet()
+    backbone = encoder_resnet(pretrained=False)
     head = decoder()
 
     # Load weights
@@ -122,5 +123,8 @@ def load_model(filepath, device):
     # Move to device
     backbone = backbone.to(device)
     head = head.to(device)
+
+    backbone.eval()
+    head.eval()
 
     return backbone, head
