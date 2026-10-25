@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@source "../app";
+@source "../components";
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #080d18;
+  color: #f1f5f9;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* ----------------------------------------
+   IMAGE UPLOAD BUTTON
+---------------------------------------- */
+
+/* Style the browser's native Choose File button. */
+input[type="file"]::file-selector-button {
+  background-color: #164e63;
+  color: #a5f3fc;
+
+  border: 1px solid #0891b2;
+  border-radius: 8px;
+
+  padding: 10px 16px;
+  margin-right: 12px;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* Highlight the button when the mouse hovers over it. */
+input[type="file"]::file-selector-button:hover {
+  background-color: #22d3ee;
+  color: #083344;
+
+  box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.15);
+
+  transform: translateY(-1px);
+}
+
+/* Make keyboard focus visible for accessibility. */
+input[type="file"]:focus-visible::file-selector-button {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+/* Disabled appearance during reconstruction. */
+input[type="file"]:disabled::file-selector-button {
+  background-color: #334155;
+  color: #94a3b8;
+
+  border-color: #475569;
+
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ----------------------------------------
+   IMAGE PREVIEW
+---------------------------------------- */
+
+.image-preview-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-preview-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ----------------------------------------
+   3D MESH VIEWER
+---------------------------------------- */
+
+.mesh-viewer-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mesh-viewer-frame canvas {
+  display: block;
+}
